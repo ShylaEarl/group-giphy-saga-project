@@ -10,16 +10,30 @@ router.get('/', (req, res) => {
   .query( sqlCommand )
   .then((results) => {
     res.send( results.row );
+    res.sendStatus(200);
   })
   .catch((error) => {
     console.log(`Error on getting favorites: ${error}`);
+    res.sendStatus(500);
   })
-  res.sendStatus(200);
 });
 
 // add a new favorite
 router.post('/', (req, res) => {
-  res.sendStatus(200);
+
+  const newFav = req.body;
+  const sqlQuery = `INSERT INTO "favorites("url", "favorite) VALUES ($1, $2)`
+
+  pool
+  .query( sqlQuery, [newFav.url, newFav.favorite] )
+  .then((result) => {
+    console.log('Success in POSTing...', result);
+    res.sendStatus(200);
+  })
+  .catch((error) => {
+    console.log('Error in POST', error);
+    res.sendStatus(500);
+  })
 });
 
 // update given favorite with a category id

@@ -64,7 +64,7 @@ function* rootSaga() {
 //with this reducer we are holding the giphy object that we got back from the giphy api?
 const giphy = (state = {}, action) => {
     if(action.type === 'GET_GIPHY') {
-        return action.payload;
+        return action.payload; 
     }
     return state;
 }
@@ -80,13 +80,22 @@ const favorite = (state = {}, action) => {
     return state;
 }
 
-//with this reducer we are holding a giphy object and updating it's category
+//with this reducer we are holding one giphy object and updating it's category
 const category = (state = {}, action) => {
     if(action.type === 'SET_CATEGORY') { //should this be the same as saga? No INFINATE LOOPS please!
-        return action.payload; //do we need to spread state here?
-    }
+        return action.payload; 
+    } 
     return state;
 }
+
+//based off of wk11 PUT example, may need else if...
+// else if (action.type === '') //example 'EDIT_ONCHANGE' what is our edit action?
+//         return {
+//             ...state,
+//             //This sets a particular property in the Object
+//             //the [] around the propety name lets us use a variable
+//             [action.payload.property]: action.payload.value
+//         }
 
 //Store
 const storeInstance = createStore(
@@ -107,3 +116,19 @@ ReactDOM.render(<Provider store={storeInstance}>
                 </Provider>, 
                 document.getElementById('root')
                 );
+
+//redux PUT example from wk11
+// hold only the single student object being edited
+// const editStudent = (state  = {}, action) => {
+//     if(action.type === 'SET_EDIT_STUDENT'){
+//         return action.payload;
+//     } else if (action.type === 'EDIT_ONCHANGE'){
+//         return {
+//             ...state, 
+//             //This sets a particular property in the Object
+//             //the [] around the propety name lets us use a variable
+//             [action.payload.property]: action.payload.value
+//         };
+//     }
+//     return state;
+// }

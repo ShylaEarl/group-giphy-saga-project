@@ -7,7 +7,7 @@ function searchView() {
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
     const [favorite, setFavorite] = useState('');
-    const searchReducer = useSelector(store => store.searchReducer);
+    const giphy = useSelector(store => store.giphy);
 
     const handleSearch = (event) => {
         event.preventDefault();
@@ -20,7 +20,8 @@ function searchView() {
         }
      }
 
-    const handleFavorite = () => {
+    const handleFavorite = (event) => {
+        event.preventDefault();
         console.log('Clicked favorite', favorite);
         dispatch( {type: 'ADD_FAVORITE', payload: favorite});
         setFavorite('');
@@ -33,33 +34,34 @@ function searchView() {
             <h2>Search for gifs!</h2>
             <input className="input" type="text" placeholder="Search Here" value={search} 
                     onChange={(event) => setSearch(event.target.value)}/>
-            <button className="searchButton" type="submit">Search</button>
+            <button className="searchButton" type="submit">Submit</button>
         </form>
 
-        <form className="favorite" onSubmit={handleFavorite}>
-            {searchReducer.map((gif, i) => {
+        
+            {giphy.map((gif, i) => {
                 return (
                 <>
-                    <img key={i}>{gif.url}</img>
-                    <select className="category" placeholder="Choose Category" 
-                        onChange={(event) => setFavorite(event.target.value)}>
-                        <option value="funny">Funny</option>
-                        <option value="cohort">Cohort</option>
-                        <option value="cartoon">Cartoon</option>
-                        <option value="nsfw">NSFW</option>
-                        <option value="meme">Meme</option>
-                    </select>
+                <form className="favorite" onSubmit={handleFavorite}>
+                    <img key={i} src={giphy.data.images.original.url}></img>
+                    <button onClick={(event) => setFavorite(event.target.value)}>Add to Favorites</button>
+                </form>
                 </>
                 )
             })}
-        </form>
-    </>
+        </>
     )
 }
 
 export default searchView;
 
+
+// {giphy.data ?
+//     (<img src={giphy.data.images.original.url}/>)
+//     : ''
+//   }
+
 //from giphy api acitivity App.js had useEffect/getFunction for loading images to DOM
 //useDispatch for dispatching action to reducer
 //reducer specific store instance to access giphy from reducer
 //getFunction including axios.get request at '/random' and dispatch action to reducer
+

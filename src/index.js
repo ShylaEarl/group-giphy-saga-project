@@ -19,8 +19,8 @@ const sagaMiddleware = createSagaMiddleware();
 //to get giphy from giphy api (GET)
 function* getGiphy() {
     try{
-        const response = yield axios.get('/api/favorite'); //route may need to change
-        yield put({type: 'GET_GIPHY', payload: response.data});
+        const response = yield axios.get('/api/favorite'); //route needs to change
+        yield put({type: 'ADD_SEARCH', payload: response.data});
         console.log(response.data);
     } catch(error) {
         alert('error in saga GET');
@@ -62,8 +62,8 @@ function* rootSaga() {
 
 //----------------Reducers------------------------
 //with this reducer we are holding the giphy object that we got back from the giphy api?
-const giphy = (state = {}, action) => {
-    if(action.type === 'GET_GIPHY') {
+const giphy = (state = [], action) => {
+    if(action.type === 'ADD_SEARCH') {
         return action.payload; 
     }
     return state;

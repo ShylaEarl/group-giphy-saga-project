@@ -1,18 +1,17 @@
-import { Router } from 'express';
 import React from 'react';
-import favoriteView from './favoriteView/favoriteView';
-import searchView from './searchView/searchView';
+import FavoriteView from '../favoriteView/favoriteView';
+import SearchView from '../searchView/searchView';
 import { HashRouter as Router, Route } from "react-router-dom";
 
-function App(props) {
+function App() {
   return (
     <div>
       <Router>
         <Route path='/' exact>
-          <searchView />
+          <SearchView />
         </Route>
         <Route path='/favoriteView'>
-          <favoriteView />
+          <FavoriteView />
         </Route>
       </Router>
     </div>

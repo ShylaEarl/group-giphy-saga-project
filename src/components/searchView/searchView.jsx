@@ -59,3 +59,7 @@ function searchView() {
 
 export default searchView;
 
+//from giphy api acitivity App.js had useEffect/getFunction for loading images to DOM
+//useDispatch for dispatching action to reducer
+//reducer specific store instance to access giphy from reducer
+//getFunction including axios.get request at '/random' and dispatch action to reducer
